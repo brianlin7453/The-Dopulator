@@ -1,17 +1,16 @@
 import React from 'react';
-import FormUserDetails from '../FormUserDetails/FormUserDetails';
-import FormPersonalDetails from '../FormPersonalDetails/FormPersonalDetails';
+import FormStepOne from '../FormStepOne/FormStepOne';
+import FormStepTwo from '../FormStepTwo/FormStepTwo';
+import FormStepThree from '../FormStepThree/FormStepThree';
+
 
 
 export class UserForm extends React.Component {
 	state = {
 		step: 1,
-		firstName: '',
-		lastName: '',
-		email: '',
-		occupation: '',
-		city: '',
-		bio: ''
+		numBills: 5,
+		numberOfPeople: 5,
+		billPeopleArray:[]
 	};
 
 	//Proceed to next step
@@ -39,13 +38,13 @@ export class UserForm extends React.Component {
 
 	render() {
 		const { step } = this.state;
-    	const { firstName, lastName, email, occupation, city, bio } = this.state;
-		const values = { firstName, lastName, email, occupation, city, bio };
+    	const { numBills, numberOfPeople } = this.state;
+		const values = { numBills, numberOfPeople };
 		
 		switch (step) {
       		case 1:
         		return (
-          			<FormUserDetails
+          			<FormStepOne
             			nextStep={this.nextStep}
             			handleChange={this.handleChange}
             			values={values}
@@ -53,12 +52,22 @@ export class UserForm extends React.Component {
         		);
         	case 2:
         		return (
-          			<FormPersonalDetails
+          			<FormStepTwo
             			nextStep={this.nextStep}
+						prevStep={this.prevStep}
             			handleChange={this.handleChange}
             			values={values}
           			/>
-        		);
+				);
+			case 3:
+				return (
+					<FormStepThree
+						nextStep={this.nextStep}
+						prevStep={this.prevStep}
+						handleChange={this.handleChange}
+						values={values}
+					/>
+				);
 		}
 	}
 }

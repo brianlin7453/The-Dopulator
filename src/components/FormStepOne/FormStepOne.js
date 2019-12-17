@@ -1,36 +1,37 @@
 import React, { Component } from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 
 
-export class FormUserDetails extends Component {
+export class FormStepOne extends Component {
 	continue = event => {
 		event.preventDefault();
 		this.props.nextStep();
 	}
 	render() {
+		
 		const {values , handleChange} = this.props;
 		return (	
 			<React.Fragment>
+			<h6>Step 1/2</h6>
+				<br/>
+				<label>How many bills would you like to sort?</label>
 				<br/>
 				<TextField 
-					id="standard-basic" 
-					label="Name of the event"
-					onChange = {handleChange('firstName')}
-					defaultValue = {values.firstName}
+					id="standard-number" 
+					type="number"
+					onChange = {handleChange('numBills')}
+					defaultValue = {values.numBills}
 				/> 
 				<br/>
-
+				<label>How many people are involved?</label>
+				<br/>
 				<TextField 
 					id="standard-basic" 
-					label="Enter Your First Name"
-					onChange = {handleChange('firstName')}
-					defaultValue = {values.firstName}
+					type="number"
+					onChange = {handleChange('numberOfPeople')}
+					defaultValue = {values.numberOfPeople}
 				/> 
 				<br/>
 				<Button 
@@ -52,4 +53,4 @@ const styles = {
 		margin: 15
 	}
 }
-export default FormUserDetails
+export default FormStepOne
