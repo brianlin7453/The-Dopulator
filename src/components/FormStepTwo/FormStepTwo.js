@@ -21,8 +21,8 @@ export class FormStepTwo extends Component {
 			items.push(<TextField 
 				key={counter}
 				label= {labelString}
-				onChange = {this.props.handleChange('eventName')}
-				defaultValue={counter + 1}	
+				onChange = {this.props.editNamesArray(counter)}
+				defaultValue={this.props.values.names[counter]}	
 			/>)
 			items.push(<br/>);
 			counter++;

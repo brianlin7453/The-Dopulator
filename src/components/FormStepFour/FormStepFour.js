@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 
 
 
-export class FormStepThree extends Component {
+export class FormStepFour extends Component {
 	continue = event => {
 		event.preventDefault();
 		this.props.nextStep();
@@ -14,19 +14,22 @@ export class FormStepThree extends Component {
 		this.props.prevStep();
 	}
 	renderInputs = () => {
+		let personIndex = 0;
 		let items = [];
-		let counter = 0;
-		while(counter < this.props.values.numBills){
-			let labelString = "Total of bill number " +  (counter + 1);
-			items.push(<TextField 
-				key={counter}
-                type = "number"
-				label= {labelString}
-				onChange = {this.props.editBillsArray(counter)}
-				defaultValue={this.props.values.billTotalArray[counter]}	
-			/>)
-			items.push(<br/>);
-			counter++;
+		while (personIndex < this.props.values.numberOfPeople){
+			let billIndex = 0;
+			while (billIndex < this.props.values.numBills){
+				let labelString = "How much did  " +  (this.props.values.names[personIndex]) + " pay for bill number " + (billIndex+1);
+				items.push(<br/>);
+				items.push(<label>{labelString}</label>)
+				items.push(<br/>);
+				items.push(<TextField 
+					type = "number"
+				/>)
+				items.push(<br/>)
+				billIndex++;
+			}
+			personIndex++;
 		}
 		return items;
 	}
@@ -62,4 +65,4 @@ const styles = {
 		margin: 15
 	}
 }
-export default FormStepThree;
+export default FormStepFour;

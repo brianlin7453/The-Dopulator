@@ -11,17 +11,16 @@ export class FormStepOne extends Component {
 	}
 	render() {
 		
-		const {values , handleChange} = this.props;
+		const {values,handleBillChange,handleNumPeopleInput} = this.props;
 		return (	
 			<React.Fragment>
-			<h6>Step 1/2</h6>
 				<br/>
 				<label>How many bills would you like to sort?</label>
 				<br/>
 				<TextField 
 					id="standard-number" 
 					type="number"
-					onChange = {handleChange('numBills')}
+					onChange = {handleBillChange}
 					defaultValue = {values.numBills}
 				/> 
 				<br/>
@@ -30,9 +29,10 @@ export class FormStepOne extends Component {
 				<TextField 
 					id="standard-basic" 
 					type="number"
-					onChange = {handleChange('numberOfPeople')}
+					onChange = {handleNumPeopleInput}
 					defaultValue = {values.numberOfPeople}
-				/> 
+				/>
+				
 				<br/>
 				<Button 
 					variant="outlined" 
