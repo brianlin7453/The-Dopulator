@@ -8,6 +8,7 @@ export class FormStepOne extends Component {
 	continue = event => {
 		event.preventDefault();
 		this.props.nextStep();
+		this.props.makePeopleBillArray();
 	}
 	render() {
 		

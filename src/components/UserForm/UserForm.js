@@ -3,6 +3,7 @@ import FormStepOne from '../FormStepOne/FormStepOne';
 import FormStepTwo from '../FormStepTwo/FormStepTwo';
 import FormStepThree from '../FormStepThree/FormStepThree';
 import FormStepFour from '../FormStepFour/FormStepFour';
+import FormStepFive from '../FormStepFive/FormStepFive';
 
 
 
@@ -13,7 +14,8 @@ export class UserForm extends React.Component {
 		numberOfPeople: 0,
 		names: [],
 		billTotalArray: [],
-		billPeopleArray:[]
+		billPeopleArray:[],
+		paymentArray: []
 	};
 
 	//Proceed to next step
@@ -32,6 +34,21 @@ export class UserForm extends React.Component {
 		});
 	};
 
+
+	makePeopleBillArray = () => {
+		const {numBills, numberOfPeople} = this.state;
+		let newArray = [];
+		for (let i = 0; i < numBills ; i++){
+			let secondArray = [];
+			for(let j = 0; j < numberOfPeople; j++){
+				secondArray.push(0);
+			}
+			newArray.push(secondArray);
+		}
+		this.setState({
+			paymentArray: newArray
+		})
+	}
 	//Handle fields change
 	//handleChange = input => event => {
 		//this.setState({
@@ -80,6 +97,7 @@ export class UserForm extends React.Component {
 		})
 	}
 
+	//Input the values of S2 into names[] state
 	editNamesArray = index => event => {
 		let toBeChanged = this.state.names;
 		toBeChanged[index] = event.target.value;
@@ -97,10 +115,20 @@ export class UserForm extends React.Component {
 		});
 	}
 
+	editPaymentArray = (billIndex,personIndex) => event => {
+		let toBeChanged = this.state.paymentArray;
+		toBeChanged[billIndex][personIndex] = event.target.value;
+		this.setState({
+			paymentArray: toBeChanged
+		},function(){
+			console.log(this.state.paymentArray);
+		});
+	}
+
 	render() {
 		const { step } = this.state;
-    	const { numBills, numberOfPeople ,billTotalArray ,names } = this.state;
-		const values = { numBills, numberOfPeople, billTotalArray, names  };
+    	const { numBills,numberOfPeople, billTotalArray, names, paymentArray} = this.state;
+		const values = { numBills, numberOfPeople, billTotalArray, names, paymentArray };
 		
 		switch (step) {
       		case 1:
@@ -110,6 +138,7 @@ export class UserForm extends React.Component {
             			handleChange={this.handleChange}
 						handleNumPeopleInput = {this.handleNumPeopleInput}
 						handleBillChange = {this.handleBillChange}
+						makePeopleBillArray = {this.makePeopleBillArray}
             			values={values}
           			/>
         		);
@@ -128,7 +157,6 @@ export class UserForm extends React.Component {
 						nextStep={this.nextStep}
 						prevStep={this.prevStep}
 						editBillsArray = {this.editBillsArray}
-						handleChange={this.handleChange}
 						values={values}
 					/>
 				);
@@ -137,14 +165,24 @@ export class UserForm extends React.Component {
 					<FormStepFour
 						nextStep={this.nextStep}
 						prevStep={this.prevStep}
-						handleChange={this.handleChange}
+						editPaymentArray = {this.editPaymentArray}
 						values={values}
 					/>
 				);
+			case 5:
+				return (
+					<FormStepFive
+						nextStep={this.nextStep}
+						prevStep={this.prevStep}
+						editPaymentArray = {this.editPaymentArray}
+						values={values}
+					/>
+					);
 			default:
 				return (
-					<FormStepOne
+					<FormStepFive
 					  nextStep={this.nextStep}
+					  prevStep={this.prevStep}
 					  handleChange={this.handleChange}
 					  values={values}
 					/>

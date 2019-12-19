@@ -25,6 +25,8 @@ export class FormStepFour extends Component {
 				items.push(<br/>);
 				items.push(<TextField 
 					type = "number"
+					onChange = {this.props.editPaymentArray(billIndex,personIndex)}
+					defaultValue = {this.props.values.paymentArray[billIndex][personIndex]}
 				/>)
 				items.push(<br/>)
 				billIndex++;
